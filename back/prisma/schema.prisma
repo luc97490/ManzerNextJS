@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  username     String
+  email        String?
+  photo        String?
+  meals        Meal[]
+  googleLogins GoogleLogin[]
+}
+
+model Meal {
+  id          Int     @id @default(autoincrement())
+  title       String
+  ingredients String?
+  imageUrl    String
+  userId      Int
+  user        User    @relation(fields: [userId], references: [id])
+}
+
+model GoogleLogin {
+  id     Int  @id
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
