@@ -7,7 +7,7 @@ export default async function handle(
   res: NextApiResponse,
 ) {
   const { searchString } = req.query
-  const resultPosts = await prisma.post.findMany({
+  const resultPosts = await prisma.meal.findMany({
     where: {
       OR: [
         {
@@ -18,7 +18,7 @@ export default async function handle(
           },
         },
         {
-          content: {
+          ingredients: {
             contains: Array.isArray(searchString)
               ? searchString[0]
               : searchString,

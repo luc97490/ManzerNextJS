@@ -6,7 +6,7 @@ import prisma from '../lib/prisma'
 import styles from '@/styles/Drafts.module.css'
 
 type Props = {
-  drafts: PostProps[]
+  myrepas: PostProps[]
 }
 
 const Drafts: React.FC<Props> = (props) => {
@@ -15,7 +15,7 @@ const Drafts: React.FC<Props> = (props) => {
       <div>
         <h1>Drafts</h1>
         <main>
-          {props.drafts.map((post) => (
+          {props.myrepas.map((post) => (
             <div key={post.id} className={styles.post}>
               <Post post={post} />
             </div>
@@ -27,12 +27,11 @@ const Drafts: React.FC<Props> = (props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const drafts = await prisma.post.findMany({
-    where: { published: false },
-    include: { author: true },
+  const myrepas = await prisma.meal.findMany({
+
   })
   return {
-    props: { drafts },
+    props: { myrepas },
   }
 }
 

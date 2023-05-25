@@ -2,3 +2,38 @@ div.post {
   color: inherit;
   padding: 2rem;
 }
+
+.card {
+  background: #141b22;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+
+  margin-bottom: 16px;
+}
+
+.image {
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+
+}
+
+.title {
+
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+}
+
+
+
+.author {
+  padding: 5px;
+  background: #d9dadb;
+  padding-left: 10%;
+  font-size: 14px;
+  color: #000000;
+  border-radius: 0 0 16px 16px;
+  font-weight: bold
+}

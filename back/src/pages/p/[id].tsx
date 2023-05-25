@@ -23,17 +23,14 @@ async function destroy(id: number): Promise<void> {
 
 const Post: React.FC<PostProps> = (props) => {
   let title = props.title
-  if (!props.published) {
-    title = `${title} (Draft)`
-  }
 
   return (
     <Layout>
       <div>
         <h2>{title}</h2>
-        <p>By {props?.author?.name || 'Unknown author'}</p>
-        <ReactMarkdown>{props.content}</ReactMarkdown>
-        {!props.published && (
+        <p>By {props?.user?.username || 'Unknown author'}</p>
+        <ReactMarkdown>{props.ingredients}</ReactMarkdown>
+        {(
           <button className={styles.button} onClick={() => publish(props.id)}>
             Publish
           </button>
@@ -52,9 +49,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       ? context.params?.id[0]
       : context.params?.id,
   )
-  const post = await prisma.post.findUnique({
+  const post = await prisma.meal.findUnique({
     where: { id },
-    include: { author: true },
+    include: { user: true },
   })
   return { props: { ...post } }
 }

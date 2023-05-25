@@ -6,25 +6,32 @@ import styles from '@/components/Post.module.css'
 export type PostProps = {
   id: number
   title: string
-  author: {
-    name: string
+  ingredients: string
+  imageUrl: string
+  user: {
+    username: string
   }
-  content: string
-  published: boolean
+
+
 }
 
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
-  const authorName = post.author ? post.author.name : 'Unknown author'
+  const authorName = post.user ? post.user.username : 'Unknown author';
   return (
-    <div
-      className={styles.post}
-      onClick={() => Router.push('/p/[id]', `/p/${post.id}`)}
-    >
-      <h2>{post.title}</h2>
-      <small>By {authorName}</small>
-      <ReactMarkdown>{post.content}</ReactMarkdown>
+    <div className={styles.card} >
+      <h2 className={styles.title}>{post.title}</h2>
+      <div className={styles.image} style={{ backgroundImage: `url(${post.imageUrl})` }}>
+
+        <div className="flex flex-wrap gap-1">
+          {post.ingredients.split(' ').map((ingredient, index) => (
+            <span key={index} className="badge bg-gray-600">{ingredient.trim()}</span>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.author}>By {authorName}</div>
     </div>
-  )
-}
+  );
+};
 
 export default Post

@@ -1,5 +1,5 @@
 .post {
-  background: white;
+
   transition: box-shadow 0.1s ease-in;
 }
 
@@ -7,6 +7,14 @@
   box-shadow: 1px 1px 3px #aaa;
 }
 
-.post + .post {
-  margin-top: 2rem;
+.menujour {
+  text-align: center;
+}
+
+.h1 {
+  color: black;
+}
+
+.accroche {
+  color: black;
 }

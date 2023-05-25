@@ -4,48 +4,25 @@ const prisma = new PrismaClient()
 
 const userData: Prisma.UserCreateInput[] = [
   {
-    name: 'Alice',
-    email: 'alice@prisma.io',
-    posts: {
+    googleId: 123456,
+    username: 'user1',
+    email: 'user1@example.com',
+    photo: 'user1.jpg',
+    meals: {
       create: [
         {
-          title: 'Join the Prisma Slack',
-          content: 'https://slack.prisma.io',
-          published: true,
+          title: 'Meal 1',
+          ingredients: 'Ingredient 1, Ingredient 2',
+          imageUrl: 'meal1.jpg',
+        },
+        {
+          title: 'Meal 2',
+          ingredients: 'Ingredient 3, Ingredient 4',
+          imageUrl: 'meal2.jpg',
         },
       ],
     },
-  },
-  {
-    name: 'Nilu',
-    email: 'nilu@prisma.io',
-    posts: {
-      create: [
-        {
-          title: 'Follow Prisma on Twitter',
-          content: 'https://www.twitter.com/prisma',
-          published: true,
-        },
-      ],
-    },
-  },
-  {
-    name: 'Mahmoud',
-    email: 'mahmoud@prisma.io',
-    posts: {
-      create: [
-        {
-          title: 'Ask a question about Prisma on GitHub',
-          content: 'https://www.github.com/prisma/prisma/discussions',
-          published: true,
-        },
-        {
-          title: 'Prisma on YouTube',
-          content: 'https://pris.ly/youtube',
-        },
-      ],
-    },
-  },
+  }
 ]
 
 async function main() {

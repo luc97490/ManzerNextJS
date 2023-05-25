@@ -5,19 +5,21 @@ import styles from '@/styles/Draft.module.css'
 
 const Draft: React.FC = () => {
   const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-  const [authorEmail, setAuthorEmail] = useState('')
+  const [ingredient, setIngredient] = useState('')
+  const [imageUrl, setimageUrl] = useState('')
+  const [userId, setuserId] = useState('')
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     try {
-      const body = { title, content, authorEmail }
-      await fetch(`/api/post`, {
+      const body = { title, ingredient, imageUrl, userId: 1 }
+
+      await fetch(`/api/meals`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
-      await Router.push('/drafts')
+      await Router.push('/mesrepas')
     } catch (error) {
       console.error(error)
     }
@@ -36,20 +38,19 @@ const Draft: React.FC = () => {
             value={title}
           />
           <input
-            onChange={(e) => setAuthorEmail(e.target.value)}
-            placeholder="Author (email address)"
+            onChange={(e) => setIngredient(e.target.value)}
+            placeholder="Ingredients exemple: tomate, épices..."
             type="text"
-            value={authorEmail}
-          />
-          <textarea
-            cols={50}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Content"
-            rows={8}
-            value={content}
+            value={ingredient}
           />
           <input
-            disabled={!content || !title || !authorEmail}
+            onChange={(e) => setimageUrl(e.target.value)}
+            placeholder="Url de l'image"
+            type="text"
+            value={imageUrl}
+          />
+          <input
+            disabled={!ingredient || !title || !imageUrl}
             type="submit"
             value="Create"
           />
