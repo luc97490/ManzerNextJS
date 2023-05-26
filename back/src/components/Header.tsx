@@ -5,9 +5,9 @@ import styles from '@/components/Header.module.css'
 import { useSession, signIn, signOut } from "next-auth/react"
 
 const Header: React.FC = () => {
-  const { data: session } = useSession()
-  const router = useRouter()
+  const { data: session, status } = useSession()
 
+  const router = useRouter()
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname
   if (session) {

@@ -6,7 +6,10 @@ import styles from '../styles/SignUp.module.css'
 export default function Login() {
   const { data: session } = useSession()
   const router = useRouter();
+
+
   if (session) {
+    console.log(session);
     return (
       <div className={styles.container}>
         <h1 className="title">Create Next App</h1>

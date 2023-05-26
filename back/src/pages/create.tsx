@@ -2,17 +2,19 @@ import React, { useState } from 'react'
 import Layout from '../components/Layout'
 import Router from 'next/router'
 import styles from '@/styles/Draft.module.css'
+import { useSession } from "next-auth/react"
 
-const Draft: React.FC = () => {
+
+const Create: React.FC = () => {
   const [title, setTitle] = useState('')
   const [ingredient, setIngredient] = useState('')
   const [imageUrl, setimageUrl] = useState('')
-  const [userId, setuserId] = useState('')
-
+  const { data: session, status } = useSession()
+  const userId = session?.user?.id;
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     try {
-      const body = { title, ingredient, imageUrl, userId: 1 }
+      const body = { title, ingredient, imageUrl, userId: userId }
 
       await fetch(`/api/meals`, {
         method: 'POST',
@@ -27,40 +29,43 @@ const Draft: React.FC = () => {
 
   return (
     <Layout>
-      <div>
-        <form onSubmit={submitData}>
-          <h1>Create Draft</h1>
-          <input
+      <div className='flex justify-center'>
+        <form className=' form-control gap-3 text-center ' onSubmit={submitData}>
+          <h1 className="text-5xl font-bold text-black m-14 text-center ">Ajouter un repas</h1>
+          <input className="input w-full "
             autoFocus
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Title"
+            placeholder="Titre du repas"
             type="text"
             value={title}
           />
-          <input
+
+          <input className="input w-full "
             onChange={(e) => setIngredient(e.target.value)}
-            placeholder="Ingredients exemple: tomate, épices..."
+            placeholder="Ingredients exemple: tomate épices..."
             type="text"
             value={ingredient}
           />
-          <input
+          <input className="input w-full "
             onChange={(e) => setimageUrl(e.target.value)}
             placeholder="Url de l'image"
             type="text"
             value={imageUrl}
           />
-          <input
-            disabled={!ingredient || !title || !imageUrl}
-            type="submit"
-            value="Create"
-          />
-          <a className={styles.black} href="#" onClick={() => Router.push('/')}>
-            or Cancel
-          </a>
+          <div className=' gap-2'>
+            <input className="btn w-48"
+              disabled={!ingredient || !title || !imageUrl}
+              type="submit"
+              value="Create"
+            />
+            <a className="btn w-48" href="#" onClick={() => Router.push('/')}>
+              or Cancel
+            </a></div>
         </form>
       </div>
+      <div className=' h-auto'></div>
     </Layout>
   )
 }
 
-export default Draft
+export default Create

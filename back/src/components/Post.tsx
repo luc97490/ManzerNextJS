@@ -9,14 +9,15 @@ export type PostProps = {
   ingredients: string
   imageUrl: string
   user: {
-    username: string
+    id: string
+    name: string
   }
 
 
 }
 
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
-  const authorName = post.user ? post.user.username : 'Unknown author';
+  const authorName = post.user ? post.user.name : 'Unknown author';
   return (
     <div className={styles.card} >
       <h2 className={styles.title}>{post.title}</h2>

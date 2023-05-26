@@ -14,7 +14,7 @@ const Blog: React.FC<Props> = (props) => {
     <Layout>
 
       <div className={styles.menujour}>
-        <h1 className="text-5xl font-bold text-black m-14">Menu du jour</h1>
+        <h1 className="text-5xl font-bold text-black m-14  ">Menu du jour</h1>
 
         <span className="font-semibold text-black">Découvrez l'excellence culinaire sur Manzer.re, le guide ultime pour dénicher les meilleurs repas.</span>
         <div className="flex flex-col items-center gap-3 m-14">
@@ -33,9 +33,9 @@ const Blog: React.FC<Props> = (props) => {
 
       <main className='bg-base-100 py-16 rounded-t-3xl'>
         {props.feed.map((post) => (
-          <div key={post.id} className={styles.post}>
-            <Post post={post} />
-          </div>
+
+          <Post key={post.id} post={post} />
+
         ))}
       </main>
 
@@ -45,6 +45,9 @@ const Blog: React.FC<Props> = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const feed = await prisma.meal.findMany({
+    include: {
+      user: true
+    }
 
   })
   return {

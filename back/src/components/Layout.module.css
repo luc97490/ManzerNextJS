@@ -1,7 +1,7 @@
 .layout {}
 
 .menuBackground {
-
+  height: 100dvh;
   background-image: url('/asset/fond.png');
   background-size: cover;
   background-position: center;
