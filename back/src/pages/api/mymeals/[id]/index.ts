@@ -27,7 +27,7 @@ export default async function handle(
 // DELETE /api/post/:id
 async function handleDELETE(postId: unknown, res: NextApiResponse<any>) {
   const post = await prisma.meal.delete({
-    where: { id: String(postId) },
+    where: { id: Number(postId) },
   })
   return res.json(post)
 }
@@ -39,7 +39,7 @@ async function handlePUT(
   res: NextApiResponse<any>
 ) {
   const post = await prisma.meal.update({
-    where: { id: String(postId) },
+    where: { id: Number(postId) },
     data: {
       title: data.title,
       ingredients: data.ingredients,
@@ -56,7 +56,7 @@ async function handlePATCH(
   res: NextApiResponse<any>
 ) {
   const post = await prisma.meal.update({
-    where: { id: String(postId) },
+    where: { id: Number(postId) },
     data,
   })
   return res.json(post)

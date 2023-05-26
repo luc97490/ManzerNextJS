@@ -19,8 +19,8 @@ export type PostProps = {
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   const authorName = post.user ? post.user.name : 'Unknown author';
   return (
-    <div className={styles.card} >
-      <h2 className={styles.title}>{post.title}</h2>
+    <div className="bg-slate-300 w-80 rounded-2xl mb-4 dark:bg-base-300" >
+      <h2 className="text-lg text-center p-1 " >{post.title}</h2>
       <div className={styles.image} style={{ backgroundImage: `url(${post.imageUrl})` }}>
 
         <div className="flex flex-wrap gap-1">
@@ -30,7 +30,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
         </div>
       </div>
 
-      <div className={styles.author}>By {authorName}</div>
+      <div className="pl-8 p-1  text-sm rounded-b-2xl  font-bold bg-black text-white dark:bg-slate-100 dark:text-black">By {authorName}</div>
     </div>
   );
 };

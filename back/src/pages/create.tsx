@@ -56,10 +56,10 @@ const Create: React.FC = () => {
             <input className="btn w-48"
               disabled={!ingredient || !title || !imageUrl}
               type="submit"
-              value="Create"
+              value="Créer"
             />
             <a className="btn w-48" href="#" onClick={() => Router.push('/')}>
-              or Cancel
+              ou Annuler
             </a></div>
         </form>
       </div>

@@ -6,7 +6,6 @@ export default NextAuth({
         GoogleProvider({
             clientId: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_SECRET,
-
         }),
     ], callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
@@ -19,10 +18,8 @@ export default NextAuth({
                             name: profile.name,
                             image: profile.picture,
                         }
-
                     });
                 }
-
                 return true;
             } catch (error) {
                 console.log("Error checking if user exists: ", error.message);
@@ -30,14 +27,10 @@ export default NextAuth({
             }
         },
         async session({ session }) {
-
             const sessionUser = await prisma.user.findFirst({
-                where: {
-                    email: session.user.email,
-                },
-                take: 1, // Utilisez l'argument `take` pour spécifier le nombre de résultats à retourner
-            }
-            );
+                where: { email: session.user.email, },
+                take: 1,
+            });
             session.user.id = String(sessionUser.id);
             return session;
         },

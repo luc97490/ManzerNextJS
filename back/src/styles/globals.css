@@ -6,6 +6,7 @@
 *:before,
 *:after {
   box-sizing: inherit;
+
 }
 
 html {
@@ -13,6 +14,7 @@ html {
 }
 
 body {
+  height: 100dvh;
   margin: 0;
   padding: 0;
 
@@ -24,4 +26,8 @@ main {
   justify-content: center;
   gap: 50px;
   flex-wrap: wrap;
+}
+
+#__next {
+  height: 100%;
 }

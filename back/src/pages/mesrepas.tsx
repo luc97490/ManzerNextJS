@@ -3,7 +3,6 @@ import { GetServerSideProps } from 'next'
 import Layout from '../components/Layout'
 import { PostProps } from '../components/Post'
 import prisma from '../lib/prisma'
-import styles from '@/styles/Drafts.module.css'
 import MyPost from '@/components/MyPost'
 import { getSession } from "next-auth/react"
 type Props = {
@@ -17,8 +16,8 @@ const MesRepas: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div>
-        <h1 className="text-5xl font-bold text-black m-14 text-center">MesRepas</h1>
-        <main className='bg-base-100 py-16  rounded-t-3xl'>
+        <h1 className="text-5xl font-bold text-black m-14 text-center">Mes Repas</h1>
+        <main className='bg-base-100 py-16  rounded-3xl'>
           {props.myrepas.map((post) => (
 
             <MyPost key={post.id} post={post} />
