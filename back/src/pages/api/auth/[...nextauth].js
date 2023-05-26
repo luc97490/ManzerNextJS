@@ -32,6 +32,8 @@ export default NextAuth({
                 take: 1,
             });
             session.user.id = String(sessionUser.id);
+            session.user.adresse = String(sessionUser.adresse)
+            session.user.secteur = String(sessionUser.secteur)
             return session;
         },
     }

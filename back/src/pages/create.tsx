@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../components/Layout'
 import Router from 'next/router'
-import styles from '@/styles/Draft.module.css'
 import { useSession } from "next-auth/react"
 
 

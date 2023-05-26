@@ -38,6 +38,13 @@ const Header: React.FC = () => {
                 <Link href="/mesrepas" legacyBehavior>
                   <a className="justify-between" data-active={isActive('/mesrepas')}>Mes repas</a></Link></li>
               <li>
+                <Link href="/profile" legacyBehavior>
+                  <a className="justify-between" data-active={isActive('/profile')}>
+                    Mon compte
+                  </a>
+                </Link>
+              </li>
+              <li>
                 <a onClick={() => { signOut() }} className="justify-between" >Se déconnecter</a>
               </li>
             </ul>
