@@ -97,7 +97,7 @@ const MyPost: React.FC<{ post: PostProps }> = ({ post }) => {
 
                     <label>Photo du repas</label>
                     <div className='flex flex-col gap-4 items-center'>
-                        <img className='w-36 h-36' src={imageUrl} alt='Uploaded' />
+                        <img className='h-36' src={imageUrl} alt='Uploaded' />
                         <button
                             className="btn w-52"
                             type='button'

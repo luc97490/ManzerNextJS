@@ -1,1 +1,14 @@
-{}
+{
+  "..\\..\\node_modules\\@uploadcare\\react-widget\\dist\\esm\\index-da2efec7.mjs -> ./dialog-f9012e19.mjs": {
+    "id": "..\\..\\node_modules\\@uploadcare\\react-widget\\dist\\esm\\index-da2efec7.mjs -> ./dialog-f9012e19.mjs",
+    "files": [
+      "static/chunks/ucare-panel-chunk.js"
+    ]
+  },
+  "..\\..\\node_modules\\@uploadcare\\react-widget\\dist\\esm\\index-da2efec7.mjs -> ./uploader-fd825cd7.mjs": {
+    "id": "..\\..\\node_modules\\@uploadcare\\react-widget\\dist\\esm\\index-da2efec7.mjs -> ./uploader-fd825cd7.mjs",
+    "files": [
+      "static/chunks/ucare-widget-chunk.js"
+    ]
+  }
+}
