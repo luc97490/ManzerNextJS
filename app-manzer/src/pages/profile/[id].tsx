@@ -14,11 +14,6 @@ const Repas: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div>
-
-        Si vous souhaitez afficher une seule fois le nom de l'utilisateur (post.user.name), vous pouvez utiliser la méthode find() pour extraire le premier élément de props.myrepas et accéder à son nom. Voici comment vous pouvez modifier votre code :
-
-        jsx
-        Copy code
         <h1 className="text-5xl font-bold text-black m-14 text-center">Les Repas : {props.myrepas.length > 0 && props.myrepas[0].user.name}</h1>
         <main className='bg-base-100 py-16  rounded-3xl'>
           {props.myrepas.map((post) => (
