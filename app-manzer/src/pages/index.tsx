@@ -38,7 +38,7 @@ const Accueil: React.FC<Props> = (props) => {
     <Layout>
       <div className="text-center">
         <h1 className="text-5xl font-bold text-black m-14">Menu du jour</h1>
-        <span className="font-semibold text-black">Découvrez l'excellence culinaire sur Manzer.re, le guide ultime pour dénicher les meilleurs repas.</span>
+        <span className="font-semibold text-black">Découvrez l&apos;excellence culinaire sur Manzer.re, le guide ultime pour dénicher les meilleurs repas.</span>
         <div className="flex flex-col items-center gap-3 m-14">
           <input type="text" placeholder='Recherche' className="input input-bordered w-72"
             value={searchTerm}
