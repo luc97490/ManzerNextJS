@@ -1,6 +1,8 @@
 import Router from 'next/router'
 import styles from '@/components/Post.module.css'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { Widget, WidgetAPI } from '@uploadcare/react-widget'
+import { FileInfo } from '@uploadcare/upload-client'
 
 
 export type PostProps = {
@@ -18,6 +20,7 @@ export type PostProps = {
 
 const MyPost: React.FC<{ post: PostProps }> = ({ post }) => {
 
+    const widgetApi = useRef<WidgetAPI | null>(null);
     const [title, setTitle] = useState('')
     const [ingredient, setIngredient] = useState('')
     const [imageUrl, setimageUrl] = useState('')
@@ -48,6 +51,11 @@ const MyPost: React.FC<{ post: PostProps }> = ({ post }) => {
         });
         await Router.push("/mesrepas")
     }
+    const handleFileChange = (fileInfo: FileInfo) => {
+        // @ts-ignore
+        setimageUrl(fileInfo.originalUrl);
+
+    };
 
     return (
         <div className="bg-slate-300 w-80 rounded-2xl mb-4 dark:bg-base-300" >
@@ -86,19 +94,34 @@ const MyPost: React.FC<{ post: PostProps }> = ({ post }) => {
                         type="text"
                         value={ingredient}
                     />
-                    <label>Url de l'image</label>
-                    <input className="input w-full bg-black "
-                        onChange={(e) => setimageUrl(e.target.value)}
-                        placeholder="Url de l'image"
-                        type="text"
-                        value={imageUrl}
-                    />
 
+                    <label>Photo du repas</label>
+                    <div className='flex flex-col gap-4 items-center'>
+                        <img className='w-36 h-36' src={imageUrl} alt='Uploaded' />
+                        <button
+                            className="btn w-52"
+                            type='button'
+                            onClick={() => {
+                                const dialog = widgetApi.current?.openDialog();
+                            }}>
+                            <div className='hidden'><Widget ref={widgetApi} publicKey='320c1e0fa4d667b2e0cf'
+                                // @ts-ignore
+                                onChange={handleFileChange} /></div>
+
+
+                            Modifier la photo
+                        </button>
+                    </div>
                     <div className="modal-action">
-                        <label htmlFor="my-modal" className="btn" onClick={() => updateRepas(Number(post.id), title, ingredient, imageUrl)}>Modifier</label>
+                        <label htmlFor="my-modal"
+                            // @ts-ignore
+                            disabled={!ingredient || !title || !imageUrl} className="btn"
+                            onClick={() => updateRepas(Number(post.id), title, ingredient, imageUrl)}>
+                            Modifier
+                        </label>
                     </div>
                 </div>
-            </div>
+            </div >
             <input type="checkbox" id="my-modal-2" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box flex flex-col gap-3">
@@ -113,7 +136,7 @@ const MyPost: React.FC<{ post: PostProps }> = ({ post }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

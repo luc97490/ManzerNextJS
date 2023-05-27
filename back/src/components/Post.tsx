@@ -1,6 +1,5 @@
 import React from 'react'
-import Router from 'next/router'
-import ReactMarkdown from 'react-markdown'
+import Router, { useRouter } from 'next/router'
 import styles from '@/components/Post.module.css'
 
 export type PostProps = {
@@ -11,12 +10,16 @@ export type PostProps = {
   user: {
     id: string
     name: string
+    secteur: string
+    image: string
   }
 
 
 }
 
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
+  const router = useRouter();
+
   const authorName = post.user ? post.user.name : 'Unknown author';
   return (
     <div className="bg-slate-300 w-80 rounded-2xl mb-4 dark:bg-base-300" >
@@ -30,7 +33,19 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
         </div>
       </div>
 
-      <div className="pl-8 p-1  text-sm rounded-b-2xl  font-bold bg-black text-white dark:bg-slate-100 dark:text-black">By {authorName}</div>
+      {router.pathname === '/' ? (
+        <div className="cursor-pointer pl-8 p-1 gap-4 flex items-center text-sm rounded-b-2xl font-bold bg-black text-white dark:bg-slate-100 dark:text-black"
+          onClick={() => Router.push('/profile/[id]', `/profile/${post.user.id}`)}
+        >
+          <img className='rounded-full object-cover w-10 h-10' src={post?.user?.image}
+
+          /> By {authorName}
+        </div>
+      ) : (
+        <div className="pl-8 p-1 gap-4 flex items-center text-sm rounded-b-2xl font-bold bg-black text-white dark:bg-slate-100 dark:text-black">
+          <img className='rounded-full object-cover w-10 h-10' src={post?.user?.image} />By {authorName}
+        </div>
+      )}
     </div>
   );
 };

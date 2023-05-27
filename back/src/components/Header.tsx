@@ -1,8 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import styles from '@/components/Header.module.css'
 import { useSession, signIn, signOut } from "next-auth/react"
+
 
 const Header: React.FC = () => {
   const { data: session, status } = useSession()
@@ -70,7 +70,7 @@ const Header: React.FC = () => {
 
         <div className="dropdown dropdown-end ">
           <label tabIndex={0} className="btn btn-ghost btn-circle  avatar h-16  w-16 mr-10">
-            <div className=" bg-black rounded-full p-2">
+            <div className=" dark:bg-black rounded-full p-2">
               <img src="/asset/login.png" />
             </div>
           </label>

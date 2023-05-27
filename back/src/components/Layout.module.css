@@ -1,10 +1,8 @@
-.layout {}
-
-.menuBackground {
+.mybackground {
 
   height: 100%;
   background-image: url('/asset/fond.png');
   background-size: cover;
-  background-position: center;
+
   /* Autres styles CSS pour votre menu */
 }
