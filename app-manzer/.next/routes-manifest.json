@@ -1,0 +1,99 @@
+{
+    "version": 3,
+    "pages404": true,
+    "basePath": "",
+    "redirects": [
+        {
+            "source": "/:path+/",
+            "destination": "/:path+",
+            "internal": true,
+            "statusCode": 308,
+            "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+        }
+    ],
+    "headers": [],
+    "dynamicRoutes": [
+        {
+            "page": "/api/auth/[...nextauth]",
+            "regex": "^/api/auth/(.+?)(?:/)?$",
+            "routeKeys": {
+                "nxtPnextauth": "nxtPnextauth"
+            },
+            "namedRegex": "^/api/auth/(?<nxtPnextauth>.+?)(?:/)?$"
+        },
+        {
+            "page": "/api/mymeals/[id]",
+            "regex": "^/api/mymeals/([^/]+?)(?:/)?$",
+            "routeKeys": {
+                "nxtPid": "nxtPid"
+            },
+            "namedRegex": "^/api/mymeals/(?<nxtPid>[^/]+?)(?:/)?$"
+        },
+        {
+            "page": "/api/user/[id]",
+            "regex": "^/api/user/([^/]+?)(?:/)?$",
+            "routeKeys": {
+                "nxtPid": "nxtPid"
+            },
+            "namedRegex": "^/api/user/(?<nxtPid>[^/]+?)(?:/)?$"
+        },
+        {
+            "page": "/profile/[id]",
+            "regex": "^/profile/([^/]+?)(?:/)?$",
+            "routeKeys": {
+                "nxtPid": "nxtPid"
+            },
+            "namedRegex": "^/profile/(?<nxtPid>[^/]+?)(?:/)?$"
+        }
+    ],
+    "staticRoutes": [
+        {
+            "page": "/",
+            "regex": "^/(?:/)?$",
+            "routeKeys": {},
+            "namedRegex": "^/(?:/)?$"
+        },
+        {
+            "page": "/create",
+            "regex": "^/create(?:/)?$",
+            "routeKeys": {},
+            "namedRegex": "^/create(?:/)?$"
+        },
+        {
+            "page": "/mesrepas",
+            "regex": "^/mesrepas(?:/)?$",
+            "routeKeys": {},
+            "namedRegex": "^/mesrepas(?:/)?$"
+        },
+        {
+            "page": "/profile",
+            "regex": "^/profile(?:/)?$",
+            "routeKeys": {},
+            "namedRegex": "^/profile(?:/)?$"
+        }
+    ],
+    "dataRoutes": [
+        {
+            "page": "/",
+            "dataRouteRegex": "^/_next/data/YkUc7q5HXKZnnJHb2srNp/index.json$"
+        },
+        {
+            "page": "/mesrepas",
+            "dataRouteRegex": "^/_next/data/YkUc7q5HXKZnnJHb2srNp/mesrepas.json$"
+        },
+        {
+            "page": "/profile/[id]",
+            "routeKeys": {
+                "nxtPid": "nxtPid"
+            },
+            "dataRouteRegex": "^/_next/data/YkUc7q5HXKZnnJHb2srNp/profile/([^/]+?)\\.json$",
+            "namedDataRouteRegex": "^/_next/data/YkUc7q5HXKZnnJHb2srNp/profile/(?<nxtPid>[^/]+?)\\.json$"
+        }
+    ],
+    "rsc": {
+        "header": "RSC",
+        "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch",
+        "contentTypeHeader": "text/x-component"
+    },
+    "rewrites": []
+}
