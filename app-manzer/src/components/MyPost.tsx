@@ -70,13 +70,13 @@ const MyPost: React.FC<{ post: PostProps }> = ({ post }) => {
             </div>
 
             <div className=" text-center  p-1  text-sm rounded-b-2xl  font-bold bg-black text-white dark:bg-slate-100 dark:text-black">
-                <label htmlFor="my-modal" className=" btn text-black bg-base-100 min-h-0 h-10 dark:text-white">Modifier</label>
-                <label htmlFor="my-modal-2" className="text-white dark:text-black btn h-10 min-h-0 btn-outline">Suprimer</label>
+                <label htmlFor={`my-modal${String(post.id)}`} className=" btn text-black bg-base-100 min-h-0 h-10 dark:text-white">Modifier</label>
+                <label htmlFor={`my-modal-2${String(post.id)}`} className="text-white dark:text-black btn h-10 min-h-0 btn-outline">Suprimer</label>
             </div>
-            <input type="checkbox" id="my-modal" className="modal-toggle" />
+            <input type="checkbox" id={`my-modal${String(post.id)}`} className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box flex flex-col gap-3">
-                    <label htmlFor="my-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label htmlFor={`my-modal${String(post.id)}`} className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="font-bold text-lg">Modification</h3>
                     <label>Titre du repas</label>
                     <input className="input w-full bg-black"
@@ -104,16 +104,16 @@ const MyPost: React.FC<{ post: PostProps }> = ({ post }) => {
                             onClick={() => {
                                 const dialog = widgetApi.current?.openDialog();
                             }}>
-                            <div className='hidden'><Widget ref={widgetApi} publicKey='320c1e0fa4d667b2e0cf'
+                            <Widget ref={widgetApi} publicKey="320c1e0fa4d667b2e0cf"
                                 // @ts-ignore
-                                onChange={handleFileChange} /></div>
+                                onChange={handleFileChange} />
 
 
                             Modifier la photo
                         </button>
                     </div>
                     <div className="modal-action">
-                        <label htmlFor="my-modal"
+                        <label htmlFor={`my-modal${String(post.id)}`}
                             // @ts-ignore
                             disabled={!ingredient || !title || !imageUrl} className="btn"
                             onClick={() => updateRepas(Number(post.id), title, ingredient, imageUrl)}>
@@ -122,17 +122,17 @@ const MyPost: React.FC<{ post: PostProps }> = ({ post }) => {
                     </div>
                 </div>
             </div >
-            <input type="checkbox" id="my-modal-2" className="modal-toggle" />
+            <input type="checkbox" id={`my-modal-2${String(post.id)}`} className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box flex flex-col gap-3">
-                    <label htmlFor="my-modal-2" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label htmlFor={`my-modal-2${String(post.id)}`} className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="font-bold text-lg">{`Suppression: ${post.title}`}</h3>
                     <p className="py-4">Êtes-vous sûr(e) de vouloir supprimer ce repas ?</p>
 
 
                     <div className="modal-action">
-                        <label htmlFor="my-modal-2" className="btn">Annuler</label>
-                        <label htmlFor="my-modal-2" className="btn" onClick={() => deleteRepas(Number(post.id))}>Supprimer</label>
+                        <label htmlFor={`my-modal-2${String(post.id)}`} className="btn">Annuler</label>
+                        <label htmlFor={`my-modal-2${String(post.id)}`} className="btn" onClick={() => deleteRepas(Number(post.id))}>Supprimer</label>
                     </div>
                 </div>
             </div>

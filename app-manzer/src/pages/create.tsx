@@ -80,7 +80,9 @@ const Create: React.FC = () => {
                     onClick={() => {
                       const dialog = widgetApi.current?.openDialog();
                     }}
-                  >
+                  >  <Widget ref={widgetApi} publicKey="320c1e0fa4d667b2e0cf"
+                    // @ts-ignore
+                    onChange={handleFileChange} />
                     Modifier la photo
                   </button>
                 </>
@@ -92,12 +94,12 @@ const Create: React.FC = () => {
                     const dialog = widgetApi.current?.openDialog();
                   }}
                 >
+                  <Widget ref={widgetApi} publicKey="320c1e0fa4d667b2e0cf"
+                    // @ts-ignore
+                    onChange={handleFileChange} />
                   Ajouter la photo
                 </button>
               )}
-              <div className='hidden'><Widget ref={widgetApi} publicKey='320c1e0fa4d667b2e0cf'
-                // @ts-ignore
-                onChange={handleFileChange} /></div>
 
             </div>
 
@@ -109,7 +111,8 @@ const Create: React.FC = () => {
               />
               <a className="btn w-48" href="#" onClick={() => Router.push('/')}>
                 ou Annuler
-              </a></div>
+              </a>
+            </div>
           </form>
         </div>
         <div className=' h-auto'></div>

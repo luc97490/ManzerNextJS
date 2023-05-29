@@ -8,65 +8,82 @@ import { FileInfo } from '@uploadcare/upload-client'
 export type UserProps = {
     id: string
     adresse: string
-    name: string
-    imageUrl: string
     secteur: string
+    nameMag: string
+    imageMag: string
 
 }
 
 const Create: React.FC<{ post: UserProps }> = ({ post }) => {
+    const [isLoading, setIsLoading] = useState(false);
     const widgetApi = useRef<WidgetAPI | null>(null);
-    const [name, setName] = useState('')
+    const [nameMag, setName] = useState('')
     const [adresse, setAdresse] = useState('')
-    const [imageUrl, setimageUrl] = useState('')
+    const [imageMag, setimageUrl] = useState('')
     const [secteur, setSecteur] = useState('')
     const { data: session, status } = useSession()
     // @ts-ignore
     const userId = session?.user?.id;
+    const router = useRouter();
     useEffect(() => {
-        setName(String(session?.user?.name));
+        if (!session) {
+            router.push('/'); // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+        }
+        // @ts-ignore
+        if (session?.user?.nameMag == "null")
+            setName("");
+        else// @ts-ignore
+            setName(String(session?.user?.nameMag));
         // @ts-ignore
         if (session?.user?.adresse == "null")
             setAdresse("");
         else // @ts-ignore
             setAdresse(String(session?.user?.adresse));
-        setimageUrl(String(session?.user?.image));
+        // @ts-ignore
+        setimageUrl(String(session?.user?.imageMag));
         // @ts-ignore
         setSecteur(String(session?.user?.secteur));
-    }, [session?.user]);
-    async function updateUser(id: string, name: string, adresse: string,
-        imageUrl: string, secteur: string): Promise<void> {
-        await fetch(`/api/user/${id}`, {
-            method: "PATCH",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: name,
-                adresse: adresse,
-                image: imageUrl,
-                secteur: secteur,
-            }),
-        })
-        await Router.push('/')
 
-    }
+
+
+    }, [session?.user]);
+    const updateUser = async (id: string, nameMag: string, adresse: string, imageMag: string, secteur: string): Promise<void> => {
+        try {
+            setIsLoading(true);
+
+            await fetch(`/api/user/${id}`, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nameMag: nameMag,
+                    adresse: adresse,
+                    imageMag: imageMag,
+                    secteur: secteur,
+                }),
+            });
+
+            await window.location.reload();
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
     const handleFileChange = (fileInfo: FileInfo) => {
         // @ts-ignore
         setimageUrl(fileInfo.originalUrl);
 
     };
 
-    const router = useRouter();
-    useEffect(() => {
-        if (!session) {
-            router.push('/'); // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-        }
-    }, [session, router]);
+
+
 
     if (session) {
         return (
             <Layout>
+
                 <div className='flex justify-center'>
                     <form className=' form-control gap-3 text-center '>
                         <h1 className="text-5xl font-bold text-black m-8 text-center ">Mon Profil</h1>
@@ -77,7 +94,7 @@ const Create: React.FC<{ post: UserProps }> = ({ post }) => {
                             placeholder="Nom de magasin"
                             type="text"
 
-                            value={name}
+                            value={nameMag}
                         />
                         <label className="font-bold text-black">Adresse</label>
                         <input className="input w-full dark:bg-base-100 "
@@ -87,16 +104,18 @@ const Create: React.FC<{ post: UserProps }> = ({ post }) => {
                             value={adresse}
                         />
                         <div className='flex flex-col gap-4 items-center'>
-                            <img className='h-24' src={imageUrl} alt='Uploaded' />
+                            <img className='h-24' src={imageMag} alt='Uploaded' />
                             <button
                                 className="btn w-52"
                                 type='button'
                                 onClick={() => {
                                     const dialog = widgetApi.current?.openDialog();
                                 }}>
-                                <div className='hidden'><Widget ref={widgetApi} publicKey='320c1e0fa4d667b2e0cf'
+                                <div><Widget ref={widgetApi} publicKey="320c1e0fa4d667b2e0cf"
                                     // @ts-ignore
-                                    onChange={handleFileChange} /></div>
+                                    onChange={handleFileChange}
+
+                                /></div>
 
 
                                 Modifier la photo
@@ -109,12 +128,13 @@ const Create: React.FC<{ post: UserProps }> = ({ post }) => {
                             <option>Ouest</option>
                             <option>Est</option>
                         </select>
-
+                        {isLoading && <progress className="progress w-auto"></progress>}
                         <div className=' gap-2'>
+
                             <input className="btn w-48"
-                                disabled={!adresse || !name || !imageUrl}
+                                disabled={!adresse || !nameMag || !imageMag}
                                 value="Modifier"
-                                onClick={() => updateUser(String(userId), name, adresse, imageUrl, secteur)}
+                                onClick={() => updateUser(String(userId), nameMag, adresse, imageMag, secteur)}
                             />
                             <a className="btn w-48" href="#" onClick={() => Router.push('/')}>
                                 ou Annuler

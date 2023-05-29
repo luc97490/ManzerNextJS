@@ -21,14 +21,14 @@ export default async function handle(
 // PATCH /api/post/:id
 async function handlePATCH(
     postId: string,
-    data: { name: string, adresse: string, image: string, secteur: string },
+    data: { nameMag: string, adresse: string, imageMag: string, secteur: string },
     res: NextApiResponse<any>
 ) {
     const post = await prisma.user.update({
         where: { id: String(postId) },
         data: {
-            name: data.name,
-            image: data.image,
+            nameMag: data.nameMag,
+            imageMag: data.imageMag,
             secteur: data.secteur,
             adresse: data.adresse
         },

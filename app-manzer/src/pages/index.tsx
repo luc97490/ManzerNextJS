@@ -21,7 +21,7 @@ const Accueil: React.FC<Props> = (props) => {
   const filteredFeed = props.feed.filter((post) =>
     (post.title.toLowerCase().includes(searchTerm.toLowerCase())
       || post.ingredients.toLowerCase().includes(searchTerm.toLowerCase())
-      || post.user.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      || post.user.nameMag.toLowerCase().includes(searchTerm.toLowerCase()))
     && filterBySector(post)
 
   );
