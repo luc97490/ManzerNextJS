@@ -12,7 +12,7 @@ export type PostProps = {
     imageUrl: string
     user: {
         id: string
-        name: string
+        nameMag: string
     }
 
 
