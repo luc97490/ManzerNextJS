@@ -1,294 +1,94 @@
-# Fullstack Example with Next.js (REST API)
+# Next.js Project
 
-This example shows how to implement a **fullstack app in TypeScript with [Next.js](https://nextjs.org/)** using [React](https://reactjs.org/) and [Prisma Client](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client). It uses a SQLite database file with some initial dummy data which you can find at [`./prisma/dev.db`](./prisma/dev.db).
+Welcome to the Next.js project! This repository contains the code for a web application built using Next.js, a React framework for server-side rendering and static site generation.
 
-## Getting started
+## Getting Started
 
-### 1. Download example and install dependencies
+To run the project locally, follow these steps:
 
-Download this example:
+1. Clone the repository to your local machine:
+git clone https://github.com/luc97490/ManzerNextJS.git
 
-```
-npx try-prisma@latest --template typescript/rest-nextjs-api-routes
-```
 
-Install npm dependencies:
 
-```
-cd rest-nextjs-api-routes
+2. Navigate to the project directory:
+cd nextjs-project
+
+
+
+
+3. Install the dependencies:
 npm install
-```
-
-<details><summary><strong>Alternative:</strong> Clone the entire repo</summary>
-
-Clone this repository:
-
-```
-git clone git@github.com:prisma/prisma-examples.git --depth=1
-```
-
-Install npm dependencies:
-
-```
-cd prisma-examples/typescript/rest-nextjs-api-routes
-npm install
-```
-
-</details>
-
-### 2. Create and seed the database
-
-Run the following command to create your SQLite database file. This also creates the `User` and `Post` tables that are defined in [`prisma/schema.prisma`](./prisma/schema.prisma):
-
-```
-npx prisma migrate dev --name init
-```
-
-When `npx prisma migrate dev` is executed against a newly created database, seeding is also triggered. The seed file in [`prisma/seed.ts`](./prisma/seed.ts) will be executed and your database will be populated with the sample data.
 
 
-### 3. Start the app
+3bis. Modified file schema.prisma
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
 
-```
+
+4. Start the development server:
 npm run dev
-```
 
-The app is now running, navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser to explore its UI.
 
-<details><summary>Expand for a tour through the UI of the app</summary>
 
-<br />
 
-**Blog** (located in [`./pages/index.tsx`](./pages/index.tsx))
+5. Open your browser and visit `http://localhost:3000` to see the application running.
 
-![](https://imgur.com/eepbOUO.png)
+## Project Structure
 
-**Signup** (located in [`./pages/signup.tsx`](./pages/signup.tsx))
+The project structure is organized as follows:
 
-![](https://imgur.com/iE6OaBI.png)
+- `pages/`: This directory contains the pages of the application. Each file under this directory corresponds to a route in the application.
 
-**Create post (draft)** (located in [`./pages/create.tsx`](./pages/create.tsx))
+- `components/`: This directory contains reusable React components used throughout the application.
 
-![](https://imgur.com/olCWRNv.png)
+- `public/`: This directory contains static assets such as images, stylesheets, or fonts.
 
-**Drafts** (located in [`./pages/drafts.tsx`](./pages/drafts.tsx))
+- `styles/`: This directory contains global CSS styles or styling utility files.
 
-![](https://imgur.com/PSMzhcd.png)
+- `utils/`: This directory contains utility functions or helper modules.
 
-**View post** (located in [`./pages/p/[id].tsx`](./pages/p/[id].tsx)) (delete or publish here)
+## Deployment
 
-![](https://imgur.com/zS1B11O.png)
+To deploy the project to a production environment, you can use the following steps:
 
-</details>
+1. Build the optimized production-ready code:
+npm run build
 
-## Using the REST API
 
-You can also access the REST API of the API server directly. It is running on the same host machine and port and can be accessed via the `/api` route (in this case that is `localhost:3000/api/`, so you can e.g. reach the API with [`localhost:3000/api/feed`](http://localhost:3000/api/feed)).
 
-### `GET`
 
-- `/api/feed`: Fetch all _published_ posts
-- `/api/filterPosts?searchString={searchString}`: Filter posts by `title` or `content`
+2. Start the production server:
+npm start
 
-### `POST`
+vbnet
 
-- `/api/post`: Create a new post
-  - Body:
-    - `title: String` (required): The title of the post
-    - `content: String` (optional): The content of the post
-    - `authorEmail: String` (required): The email of the user that creates the post
-- `/api/user`: Create a new user
-  - Body:
-    - `email: String` (required): The email address of the user
-    - `name: String` (optional): The name of the user
 
-### `PUT`
+3. Your Next.js application is now running in a production environment.
 
-- `/api/publish/:id`: Publish a post by its `id`
+## Contributing
 
-### `DELETE`
+If you would like to contribute to this project, please follow these steps:
 
-- `/api/post/:id`: Delete a post by its `id`
+1. Fork the repository and create a new branch for your feature or bug fix.
 
-## Evolving the app
+2. Make your changes and test them locally.
 
-Evolving the application typically requires three steps:
+3. Commit your changes with descriptive commit messages.
 
-1. Migrate your database using Prisma Migrate
-1. Update your server-side application code
-1. Build new UI features in React
+4. Push your branch to your forked repository.
 
-For the following example scenario, assume you want to add a "profile" feature to the app where users can create a profile and write a short bio about themselves.
+5. Open a pull request in this repository, explaining your changes and their purpose.
 
-### 1. Migrate your database using Prisma Migrate
+## Resources
 
-The first step is to add a new table, e.g. called `Profile`, to the database. You can do this by adding a new model to your [Prisma schema file](./prisma/schema.prisma) file and then running a migration afterwards:
+Here are some resources to get started with Next.js:
 
-```diff
-// schema.prisma
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Next.js GitHub Repository](https://github.com/vercel/next.js)
 
-model Post {
-  id        Int     @default(autoincrement()) @id
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User?   @relation(fields: [authorId], references: [id])
-  authorId  Int
-}
+## License
 
-model User {
-  id      Int      @default(autoincrement()) @id 
-  name    String? 
-  email   String   @unique
-  posts   Post[]
-+ profile Profile?
-}
-
-+model Profile {
-+  id     Int     @default(autoincrement()) @id
-+  bio    String?
-+  userId Int     @unique
-+  user   User    @relation(fields: [userId], references: [id])
-+}
-```
-
-Once you've updated your data model, you can execute the changes against your database with the following command:
-
-```
-npx prisma migrate dev
-```
-
-### 2. Update your application code
-
-You can now use your `PrismaClient` instance to perform operations against the new `Profile` table. Here are some examples:
-
-#### Create a new profile for an existing user
-
-```ts
-const profile = await prisma.profile.create({
-  data: {
-    bio: "Hello World",
-    user: {
-      connect: { email: "alice@prisma.io" },
-    },
-  },
-});
-```
-
-#### Create a new user with a new profile
-
-```ts
-const user = await prisma.user.create({
-  data: {
-    email: "john@prisma.io",
-    name: "John",
-    profile: {
-      create: {
-        bio: "Hello World",
-      },
-    },
-  },
-});
-```
-
-#### Update the profile of an existing user
-
-```ts
-const userWithUpdatedProfile = await prisma.user.update({
-  where: { email: "alice@prisma.io" },
-  data: {
-    profile: {
-      update: {
-        bio: "Hello Friends",
-      },
-    },
-  },
-});
-```
-
-
-### 3. Build new UI features in React
-
-Once you have added a new endpoint to the API (e.g. `/api/profile` with `/POST`, `/PUT` and `GET` operations), you can start building a new UI component in React. It could e.g. be called `profile.tsx` and would be located in the `pages` directory.
-
-In the application code, you can access the new endpoint via `fetch` operations and populate the UI with the data you receive from the API calls.
-
-
-## Switch to another database (e.g. PostgreSQL, MySQL, SQL Server, MongoDB)
-
-If you want to try this example with another database than SQLite, you can adjust the the database connection in [`prisma/schema.prisma`](./prisma/schema.prisma) by reconfiguring the `datasource` block. 
-
-Learn more about the different connection configurations in the [docs](https://www.prisma.io/docs/reference/database-reference/connection-urls).
-
-<details><summary>Expand for an overview of example configurations with different databases</summary>
-
-### PostgreSQL
-
-For PostgreSQL, the connection URL has the following structure:
-
-```prisma
-datasource db {
-  provider = "postgresql"
-  url      = "postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA"
-}
-```
-
-Here is an example connection string with a local PostgreSQL database:
-
-```prisma
-datasource db {
-  provider = "postgresql"
-  url      = "postgresql://janedoe:mypassword@localhost:5432/notesapi?schema=public"
-}
-```
-
-### MySQL
-
-For MySQL, the connection URL has the following structure:
-
-```prisma
-datasource db {
-  provider = "mysql"
-  url      = "mysql://USER:PASSWORD@HOST:PORT/DATABASE"
-}
-```
-
-Here is an example connection string with a local MySQL database:
-
-```prisma
-datasource db {
-  provider = "mysql"
-  url      = "mysql://janedoe:mypassword@localhost:3306/notesapi"
-}
-```
-
-### Microsoft SQL Server
-
-Here is an example connection string with a local Microsoft SQL Server database:
-
-```prisma
-datasource db {
-  provider = "sqlserver"
-  url      = "sqlserver://localhost:1433;initial catalog=sample;user=sa;password=mypassword;"
-}
-```
-
-### MongoDB
-
-Here is an example connection string with a local MongoDB database:
-
-```prisma
-datasource db {
-  provider = "mongodb"
-  url      = "mongodb://USERNAME:PASSWORD@HOST/DATABASE?authSource=admin&retryWrites=true&w=majority"
-}
-```
-
-</details>
-
-## Next steps
-
-- Check out the [Prisma docs](https://www.prisma.io/docs)
-- Share your feedback in the [`#product-wishlist`](https://prisma.slack.com/messages/CKQTGR6T0/) channel on the [Prisma Slack](https://slack.prisma.io/)
-- Create issues and ask questions on [GitHub](https://github.com/prisma/prisma/)
-- Watch our biweekly "What's new in Prisma" livestreams on [Youtube](https://www.youtube.com/channel/UCptAHlN1gdwD89tFM3ENb6w)
+This project is licensed under the [MIT License](LICENSE).
